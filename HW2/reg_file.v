@@ -32,8 +32,10 @@ always@(posedge clk) begin
 		end
 	end
 	else begin // work
-		if(we && rdst != 0) begin
+		if(we && rdst_id != 0) begin
 			R[rdst_id] <= rdst;
+		end else begin
+			R[rdst_id] <= R[rdst_id];
 		end
 		r1 <= R[rs1_id];
 		r2 <= R[rs2_id]; 
