@@ -38,7 +38,13 @@ always@(*) begin
 			_invalid = 1'b1;
 		end
 		4'b0111: begin // slt 7
-			trd = (rs1 < rs2) ? 32'h1 : 32'h0;
+			case(_overflow[2:1]):
+				2'b00: trd <= (rs1 < rs2) ? 32'b1 : 32'b0;
+				2'b11: trd <= (rs1 < rs2) ? 32'b1 : 32'b0;
+				2'b01: trd <= 32'b1;
+				2'b10: trd <= 32'b0;
+				default: trd <= 32'b0;
+			endcase
 			_invalid = 1'b1;
 		end
 		default: begin // invalid op code
